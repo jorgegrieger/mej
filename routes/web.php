@@ -67,4 +67,9 @@ Route::get('/frentecaixa/editar/{id}', 'PedidoController@editar')->name('frentec
 Route::PUT('/frentecaixa/atualizar/{id}','PedidoController@atualizar')->name('frentecaixa.atualizar');
 Route::get('/frentecaixa/deletar/{id}', 'PedidoController@deletar')->name('frentecaixa.deletar');
 Route::get('/frentecaixa/buscar','PedidoController@buscar')->name('frentecaixa.buscar');
-Route::get('/frentecaixa/addprd','PedidoController@adicionar')->name('frentecaixa.addprd');
+Route::POST('/frentecaixa/addprd','PedidoController@addprd')->name('frentecaixa.addprd');
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -2,7 +2,8 @@
 
 @include('paineis')
 
-
+<form class="form-horizontal" method="POST" action="{{ route('frentecaixa.addprd') }}">
+@csrf
 <div class="breadcrumbs">
 	<div class="breadcrumbs-inner">
 		<div class="row m-0">
@@ -51,24 +52,40 @@
             <h1><strong>Data: {{$datetime}}</strong></h1>
 			<select id="produto" name="prd" class="form-control" >
                                     <option value="" selected disabled>Selecionar</option>
-                  								<option  value="teste">teste</option>
+									@foreach($produtos as $key => $prd)
+                  								<option  value="{{$key}}">{{$prd}}</option>
+												  @endforeach
                   						</select>
-					</div>	
+					</div>
+					<label for="text"><strong>Qtd:</strong></label>
+                                        <input type="number" class="form-control"  for="inputError" name="qtd" value="">	
 					</div>
 					<br>
 					<br>
-					<a class="btn btn-success"  data-toggle="tooltip" title="Adicionar Clientes" href="{{ route('frentecaixa.addprd') }}">Adicionar Produto</a>
+			
+					<button class="btn btn-primary" type="submit">Save</button>
+					</form>
 					<div class="row">
 					<div class="col-md-12">
 					<table id="tabela" class="table" >
 							<thead>
 								<tr>
-								
+									<th>ID</th>
 									<th>Nome</th>
-									<th>Quantidade</th>
-									<th>Total</th>
+									<th>Valor</th>
+									<th>Estoque</th>
 								</tr>
 							</thead>
+							<tbody>
+							@foreach(Cart::getContent() as $pedido)
+							<tr>
+								<td>{{$pedido->id}}</td>
+								<td>{{$pedido->name}}</td>
+								<td>{{$pedido->price }}</td>
+								<td>{{$pedido->quantity}}</td>
+							</tr>
+							@endforeach
+							</tbody>
 							</table>
 					</div>
 					</div>

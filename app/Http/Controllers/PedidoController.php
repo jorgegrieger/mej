@@ -7,6 +7,7 @@ use App\Cliente;
 use App\Pedido;
 use App\Produto;
 use DB;
+use Cart;
 
 class PedidoController extends Controller
 {
@@ -18,12 +19,18 @@ class PedidoController extends Controller
 
             return view ('frentecaixa.index', compact('fornecedor','datetime','produtos'));
         }
-        public function adicionar(Request $request)
+        public function addprd(Request $request)
         {
-            $cliente = Produto::all()->pluck('nome', 'id');
-            $prd = $request->input('prd');
-    
-            return view ('frentecaixa.addproduto', compact('cliente','prd'));
+            $id = $request->input('prd');
+            $client = $request->input('cliente');
+            $qtd = $request->input('qtd');
+
+            $produto = Produto::find($id);
+
+            Cart::add($produto->id, $produto->nome, $produto->valor_venda,$qtd);
+            
+
+            return redirect()->back();
         }
     
     
